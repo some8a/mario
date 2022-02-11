@@ -157,11 +157,13 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.vy = -150
-    animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+    if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
+        mySprite.vy = -200
+        animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+    }
 })
 let mySprite: Sprite = null
-scene.setBackgroundColor(9)
+scene.setBackgroundColor(14)
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -181,9 +183,9 @@ mySprite = sprites.create(img`
     . . . . f f f f f f f f f f . . 
     . . . . . f f . . . f f f . . . 
     `, SpriteKind.Player)
-mySprite.setPosition(20, 20)
+mySprite.setPosition(20, 80)
+controller.moveSprite(mySprite, 70, 0)
 scene.cameraFollowSprite(mySprite)
-controller.moveSprite(mySprite, 50, 0)
 forever(function () {
-    mySprite.setVelocity(0, mySprite.vy + 5)
+    mySprite.setVelocity(0, mySprite.vy + 8)
 })
