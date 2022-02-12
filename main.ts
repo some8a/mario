@@ -1,3 +1,6 @@
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.over(false)
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     mySprite,
@@ -158,8 +161,7 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
-        mySprite.vy = -200
-        animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+        mySprite.vy = -180
     }
 })
 let mySprite: Sprite = null
@@ -187,5 +189,5 @@ mySprite.setPosition(20, 80)
 controller.moveSprite(mySprite, 70, 0)
 scene.cameraFollowSprite(mySprite)
 forever(function () {
-    mySprite.setVelocity(0, mySprite.vy + 8)
+    mySprite.vy += 8
 })
