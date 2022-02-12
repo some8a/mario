@@ -161,11 +161,11 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
-        mySprite.vy = -180
+        mySprite.vy = -200
     }
 })
 let mySprite: Sprite = null
-scene.setBackgroundColor(14)
+scene.setBackgroundColor(9)
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
