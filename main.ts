@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Goal = SpriteKind.create()
+}
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     game.over(false)
 })
@@ -159,13 +162,16 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Goal, function (sprite, otherSprite) {
+    game.over(true)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
-        mySprite.vy = -200
+        mySprite.vy = -180
     }
 })
 let mySprite: Sprite = null
-scene.setBackgroundColor(9)
+scene.setBackgroundColor(14)
 tiles.setCurrentTilemap(tilemap`レベル1`)
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -187,6 +193,25 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 mySprite.setPosition(20, 80)
 controller.moveSprite(mySprite, 70, 0)
+let goal = sprites.create(img`
+    . . b b b b b b b b b b b b . . 
+    . b e 4 4 4 4 4 4 4 4 4 4 e b . 
+    b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+    b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+    b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+    b e e 4 4 4 4 4 4 4 4 4 4 e e b 
+    b e e e e e e e e e e e e e e b 
+    b e e e e e e e e e e e e e e b 
+    b b b b b b b d d b b b b b b b 
+    c b b b b b b c c b b b b b b c 
+    c c c c c c b c c b c c c c c c 
+    b e e e e e c b b c e e e e e b 
+    b e e e e e e e e e e e e e e b 
+    b c e e e e e e e e e e e e c b 
+    b b b b b b b b b b b b b b b b 
+    . b b . . . . . . . . . . b b . 
+    `, SpriteKind.Goal)
+goal.setPosition(1464, 106)
 scene.cameraFollowSprite(mySprite)
 forever(function () {
     mySprite.vy += 8
